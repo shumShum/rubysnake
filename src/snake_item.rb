@@ -1,0 +1,4 @@
+class SnakeItem < Particle
+  
+  
+end

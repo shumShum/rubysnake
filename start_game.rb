@@ -10,12 +10,28 @@ include Chingu
 
 require_all File.join(ROOT, "src")
 
-class Window < Chingu::Window
+class GameWindow < Window
   
   def initialize
     super(1000,640)
   end
+
+  def setup
+    self.factor = 2
+    reset_game
+    @last_level = nil
+    
+    push_game_state(Intro)
+  end
+
+  def reset_game
+    
+  end
+
+  def start
+    
+  end
   
 end
 
-Window.new.show
+GameWindow.new.show
