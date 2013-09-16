@@ -10,11 +10,11 @@ class MenuState < GameState
       :padding => 10
     )
     
-    $window.reset_game
+    # $window.reset_game
   end
 
   def start_game
-    $window.start
+    switch_game_state(RunGame)
   end
   
 end
@@ -29,6 +29,23 @@ class Intro < GameState
   
   def draw
     fill(Color::RED)
+    super
+  end
+
+end
+
+class RunGame < GameState
+  trait :timer
+  
+  def setup
+    self.input = { escape: :exit }
+    @egg = Egg.create
+    @snake = Snake.create
+    @snake.egg = @egg
+  end
+
+  def draw
+    fill_gradient(:from => Color::CYAN, :to => Color::BLUE)
     super
   end
 

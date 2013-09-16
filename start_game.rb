@@ -17,19 +17,10 @@ class GameWindow < Window
   end
 
   def setup
+    retrofy
     self.factor = 2
-    reset_game
-    @last_level = nil
     
     push_game_state(Intro)
-  end
-
-  def reset_game
-    
-  end
-
-  def start
-    
   end
   
 end
