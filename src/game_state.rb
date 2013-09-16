@@ -39,9 +39,7 @@ class RunGame < GameState
   
   def setup
     self.input = { escape: :exit }
-    @egg = Egg.create
-    @snake = Snake.create
-    @snake.egg = @egg
+    @loop = GameLoop.create
   end
 
   def draw

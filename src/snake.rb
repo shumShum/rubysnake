@@ -1,6 +1,4 @@
 class Snake < GameObject
-  trait :timer
-
   attr_accessor :x, :y, :egg
 
   def setup
@@ -12,22 +10,23 @@ class Snake < GameObject
 
     @image = Image["snake.png"] rescue nil
 
-    @x = 200
-    @y = 200
+    @x = 180
+    @y = 180
     @max_height = $window.height
     @max_width = $window.width
+    @step = 15
   end
 
-  def move(direction)
-    case direction
+  def move    
+    case @direction
     when "up"
-      @y -= 10 if @y > 0
+      @y -= @step if @y > 0
     when "down"
-      @y += 10 if @y < @max_height
+      @y += @step if @y < @max_height
     when "right"
-      @x += 10 if @x < @max_width
+      @x += @step if @x < @max_width
     when "left"
-      @x -= 10 if @x > 0
+      @x -= @step if @x > 0
     end
   end
 
@@ -52,13 +51,6 @@ class Snake < GameObject
   def move_left
     if @direction != "right"
       @direction = "left"
-    end
-  end
-
-  def update
-    move(@direction)
-    if (@x < @egg.x + 25) && (@x > @egg.x - 25) && (@y > @egg.y - 25) && (@y < @egg.y + 25)
-      @egg.to_die
     end
   end
 
