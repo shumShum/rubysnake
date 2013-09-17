@@ -24,11 +24,13 @@ class Intro < GameState
   
   def setup
     on_input([:space, :esc, :enter, :backspace, :gamepad_button_1, :return]) { switch_game_state(MenuState) }
-    GameObject.create(:image => Image["intro.png"], :x => 0, :y => 0, :rotation_center => :top_left)
+    GameObject.create(:image => Image["intro.png"], :x => 50, :y => 50, :rotation_center => :top_left)
+    Text.create("RubySnake V1.0", :x => 400, :y => 240, :size => 30, :align => :center)
+    Text.create("by Shum, 2013", :x => 600, :y => 280, :size => 15, :align => :center)
   end
   
   def draw
-    fill(Color::RED)
+    fill(Color::BLACK)
     super
   end
 
