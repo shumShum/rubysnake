@@ -2,12 +2,6 @@ class Snake < GameObject
   attr_accessor :x, :y, :egg
 
   def setup
-    self.input = { 
-      up: :move_up,
-      down: :move_down, 
-      right: :move_right, 
-      left: :move_left }
-
     @image = Image["snake.png"] rescue nil
 
     @x = 180
@@ -15,43 +9,62 @@ class Snake < GameObject
     @max_height = $window.height
     @max_width = $window.width
     @step = 15
+
+    @angle = 0
+    @rotate = 0.349
   end
 
-  def move    
-    case @direction
-    when "up"
-      @y -= @step if @y > 0
-    when "down"
-      @y += @step if @y < @max_height
-    when "right"
-      @x += @step if @x < @max_width
-    when "left"
-      @x -= @step if @x > 0
-    end
+  def move
+    move_up if holding?(:up)
+    move_down if holding?(:down)
+    move_right if holding?(:right)
+    move_left if holding?(:left)
+    vel_x = @step * Math.cos(@angle)
+    vel_y = @step * Math.sin(@angle)    
+    @x += vel_x if @x + vel_x < @max_width
+    @y += vel_y if @y + vel_y < @max_height
   end
 
   def move_up
-    if @direction != "down"
-      @direction = "up"
+    case quadrant
+    when 1,4
+      @angle = (@angle - @rotate)%6.28
+    when 2,3
+      @angle = (@angle + @rotate)%6.28
     end
   end
 
   def move_down
-    if @direction != "up"
-      @direction = "down"
+    case quadrant
+    when 1,4
+      @angle = (@angle + @rotate)%6.28
+    when 2,3
+      @angle = (@angle - @rotate)%6.28
     end
   end
 
   def move_right
-    if @direction != "left"
-      @direction = "right"
+    case quadrant
+    when 1,2
+      @angle = (@angle - @rotate)%6.28
+    when 3,4
+      @angle = (@angle + @rotate)%6.28
     end
   end
 
   def move_left
-    if @direction != "right"
-      @direction = "left"
+    case quadrant
+    when 1,2
+      @angle = (@angle + @rotate)%6.28
+    when 3,4
+      @angle = (@angle - @rotate)%6.28
     end
+  end
+
+  private
+
+  def quadrant
+    (@angle/1.571).floor + 1 
   end
 
 end

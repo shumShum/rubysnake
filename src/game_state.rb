@@ -38,8 +38,12 @@ class RunGame < GameState
   trait :timer
   
   def setup
-    self.input = { escape: :exit }
+    self.input = { escape: :reset }
     @loop = GameLoop.create
+  end
+
+  def reset
+    switch_game_state(MenuState)
   end
 
   def draw
