@@ -14,6 +14,8 @@ class GameLoop < GameObject
     @snake.move
     if (@snake.x < @egg.x + 15) && (@snake.x > @egg.x - 15) && (@snake.y > @egg.y - 15) && (@snake.y < @egg.y + 15)
       @egg.reburn
+      @snake.grow_up
+
       @score.up
     end
   end

@@ -12,9 +12,13 @@ class Snake < GameObject
 
     @angle = 0
     @rotate = 0.349
+
+    @child = 'tail'
   end
 
   def move
+    @child.move(@x, @y) if @child != 'tail'
+
     move_up if holding?(:up)
     move_down if holding?(:down)
     move_right if holding?(:right)
@@ -58,6 +62,14 @@ class Snake < GameObject
       @angle = (@angle + @rotate)%6.28
     when 3,4
       @angle = (@angle - @rotate)%6.28
+    end
+  end
+
+  def grow_up
+    if @child != 'tail'
+      @child.grow_up
+    else
+      @child = SnakeItem.create(x: @x, y: @y)
     end
   end
 
