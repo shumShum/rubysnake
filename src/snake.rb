@@ -73,6 +73,14 @@ class Snake < GameObject
     end
   end
 
+  def slowed
+    @step -= 5
+  end
+
+  def fasted
+    @step += 5
+  end
+
   private
 
   def quadrant
