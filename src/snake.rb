@@ -81,6 +81,12 @@ class Snake < GameObject
     @step += 5
   end
 
+  def crash
+    @x = rand(10) * 99 + 20
+    @y = rand(10) * 63 + 20
+    @child.crash if @child != 'tail' 
+  end
+
   private
 
   def quadrant

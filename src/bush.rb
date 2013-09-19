@@ -40,4 +40,13 @@ class BushFactory
       bush.move
     end
   end
+
+  def get_bush(x, y)
+    @bushs.each do |bush|
+      if (x < bush.x + 30) && (x > bush.x - 30) && (y > bush.y - 30) && (y < bush.y + 30)
+        return bush
+      end
+    end
+    nil
+  end
 end

@@ -19,13 +19,28 @@ class GameLoop < GameObject
 
   def loop_iteration
     @snake.move
+    
+    get_and_eat_food
+    get_and_eat_bush
+
+    @bush_factory.move_bush
+  end
+
+  def get_and_eat_food
     @food = @food_factory.get_food(@snake.x, @snake.y)
     if !@food.nil? 
       @food.eat
       send @food.effect  
     end
+  end
 
-    @bush_factory.move_bush
+  def get_and_eat_bush
+    @bush = @bush_factory.get_bush(@snake.x, @snake.y)
+    if !@bush.nil?
+      @snake.crash
+      @score.out_final_score
+      pause!
+    end 
   end
 
   def create_bonus_egg
